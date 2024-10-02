@@ -1,0 +1,55 @@
+num_tokens: 20
+tasks:
+  - squadqa
+  - summarization
+  - europal
+
+task : squadqa
+squadqa:
+  soft_prompt: "QUESTION ANSWER"
+  paths:
+    train_df: "/ssd_scratch/cvit/kolubex/squad_data/Squad_train.csv"
+    val_df: "/ssd_scratch/cvit/kolubex/squad_data/Squad_val.csv"
+  wandb_run_name: "squadqa"
+  model_save_path: "/ssd_scratch/cvit/kolubex/models_squadqa/"
+  
+
+summarization:
+  soft_prompt: "SUMMARIZE"
+  paths:
+    train_df: "/ssd_scratch/cvit/kolubex/cnn_dailymail/train.csv"
+    val_df: "/ssd_scratch/cvit/kolubex/cnn_dailymail/validation.csv"
+  wandb_run_name: "summarize"
+  model_save_path: "/ssd_scratch/cvit/kolubex/models_summarize/"
+
+europal:
+  soft_prompt: "TRANSLATE"
+  paths:
+    train_df: "/ssd_scratch/cvit/kolubex/europal/EuroPal_train.csv"
+    val_df: "/ssd_scratch/cvit/kolubex/europal/EuroPal_val.csv"
+  wandb_run_name: "translation"
+  model_save_path: "/ssd_scratch/cvit/kolubex/models_europal/"
+  
+num_workers: 8
+epochs: 10
+
+training:
+  batch_size: 1
+  lr: 0.0001
+validation:
+  batch_size: 6
+
+model_name: "gpt2"
+
+wandb_logging: True
+wandb_project: 'gptprompttune'
+
+model_save_freq: 1
+model_save_path: "/ssd_scratch/cvit/kolubex/models_europal/"
+
+clip_grads: True
+early_stop:
+  use: True
+  patience: 4
+num_accumulate: 4
+gradient_accumulate: True
